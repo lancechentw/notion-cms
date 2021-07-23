@@ -1,0 +1,24 @@
+{
+  "name": "notion-cms",
+  "version": "0.0.1",
+  "description": "Build your website using content you put into Notion",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "Notion",
+    "NotionAPI",
+    "CMS",
+    "API",
+    "HTML"
+  ],
+  "author": "Lance Chen (https://lancechen.tw)",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}
