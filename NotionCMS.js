@@ -1,17 +1,17 @@
 const cheerio = require("cheerio");
 const NotionAPI = require("./NotionAPI.js");
 const { RichTextList } = require("./RichText.js");
-const { PageProperties} = require("./Property");
+const { DatabaseProperties, PageProperties} = require("./Property");
 
 class NotionCMS {
   constructor(token) {
     this.notionApi = new NotionAPI(token);
   }
 
-  async getContentOfDatabase(databaseId, filter) {
+  async getContentOfDatabase(databaseId, filter, sorts) {
     const databaseObj = await this.notionApi.getDatabase(databaseId);
     // TODO handle has_more
-    const pageListObj = await this.notionApi.queryDatabase(databaseId, filter);
+    const pageListObj = await this.notionApi.queryDatabase(databaseId, filter, sorts);
 
     const pages = await Promise.all(
       pageListObj.results.map(async (pageObj) => {

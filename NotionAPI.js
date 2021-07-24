@@ -22,7 +22,7 @@ class NotionAPI {
     return await this.#_request(options, {});
   }
 
-  async queryDatabase(databaseId, filter) {
+  async queryDatabase(databaseId, filter, sorts) {
     const options = {
       host: "api.notion.com",
       path: `/v1/databases/${databaseId}/query`,
@@ -37,6 +37,7 @@ class NotionAPI {
 
     let body = {
       filter,
+      sorts,
     };
 
     return await this.#_request(options, body);
