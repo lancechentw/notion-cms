@@ -1,6 +1,7 @@
 const cheerio = require("cheerio");
 const NotionAPI = require("./NotionAPI.js");
 const { RichTextList } = require("./RichText.js");
+const { PageProperties} = require("./Property");
 
 class NotionCMS {
   constructor(token) {
@@ -21,9 +22,7 @@ class NotionCMS {
           last_edited_time: new Date(pageObj.last_edited_time),
           archived: pageObj.archived,
           url: pageObj.url,
-          properties: {
-            // TODO
-          },
+          properties: new PageProperties(pageObj.properties).get(),
           body: await this.#convertPageToHTML(pageObj.id),
         };
       })
