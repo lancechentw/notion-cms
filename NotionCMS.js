@@ -23,7 +23,7 @@ class NotionCMS {
           archived: pageObj.archived,
           url: pageObj.url,
           properties: new PageProperties(pageObj.properties).get(),
-          body: await this.#convertPageToHTML(pageObj.id),
+          body: await this._convertPageToHTML(pageObj.id),
         };
       })
     );
@@ -49,17 +49,17 @@ class NotionCMS {
       archived: pageObj.archived,
       url: pageObj.url,
       properties: new PageProperties(pageObj.properties).get(),
-      body: await this.#convertPageToHTML(pageObj.id),
+      body: await this._convertPageToHTML(pageObj.id),
     };
   }
 
-  async #convertPageToHTML(id) {
+  async _convertPageToHTML(id) {
     const dom = cheerio.load("<div></div>", null, false);
-    await this.#convertBlockToHTML(id, dom("div"));
+    await this._convertBlockToHTML(id, dom("div"));
     return dom("div").html();
   }
 
-  async #convertBlockToHTML(id, node) {
+  async _convertBlockToHTML(id, node) {
     // TODO handle has_more
     const blockChildren = await this.notionApi.getBlockChildren(id, {});
     for (const [i, block] of blockChildren.results.entries()) {
@@ -169,7 +169,7 @@ class NotionCMS {
           break;
       }
       if (block.has_children) {
-        await this.#convertBlockToHTML(block.id, childNode);
+        await this._convertBlockToHTML(block.id, childNode);
       }
     }
   }

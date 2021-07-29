@@ -19,7 +19,7 @@ class NotionAPI {
       },
     };
 
-    return await this.#_request(options, {});
+    return await this._request(options, {});
   }
 
   async queryDatabase(databaseId, filter, sorts) {
@@ -40,7 +40,7 @@ class NotionAPI {
       sorts,
     };
 
-    return await this.#_request(options, body);
+    return await this._request(options, body);
   }
 
   async getPage(pageId) {
@@ -55,7 +55,7 @@ class NotionAPI {
       },
     };
 
-    return await this.#_request(options, {});
+    return await this._request(options, {});
   }
 
   async getBlockChildren(blockId) {
@@ -69,10 +69,10 @@ class NotionAPI {
       },
     };
 
-    return this.#_request(options, {});
+    return this._request(options, {});
   }
 
-  #_request(options, body) {
+  _request(options, body) {
     return new Promise((resolve, reject) => {
       let req = https.request(options, (res) => {
         let raw = "";

@@ -11,10 +11,10 @@ class PageProperties {
   constructor(propertiesObj) {
     this.srcProperties = propertiesObj;
     this.properties = {};
-    this.#convertProperties();
+    this._convertProperties();
   }
 
-  #convertProperties() {
+  _convertProperties() {
     for (let name in this.srcProperties) {
       let srcProperty = this.srcProperties[name];
       switch (srcProperty.type) {
