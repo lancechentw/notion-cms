@@ -53,7 +53,7 @@ class RichTextList {
           }
           break;
         case "mention":
-          // NOTE: `user`, `page`, and `database` mentions are internal to Notion,
+          // NOTE: `user`, and `database` mentions are internal to Notion,
           // thus are not supported here.
           if (richText.mention.type === "date") {
             if (richText.mention.date.end !== null) {
@@ -71,6 +71,12 @@ class RichTextList {
                 ).toString()}</time>`
               );
             }
+          } else if (richText.mention.type === "page") {
+            // TODO
+            childNode.append(richText.plain_text);
+          } else if (richText.mention.type === "database") {
+            // TODO
+            childNode.append(richText.plain_text);
           }
           break;
         case "equation":
