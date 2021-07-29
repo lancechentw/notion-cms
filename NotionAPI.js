@@ -43,6 +43,21 @@ class NotionAPI {
     return await this.#_request(options, body);
   }
 
+  async getPage(pageId) {
+    const options = {
+      host: "api.notion.com",
+      path: `/v1/pages/${pageId}`,
+      method: "GET",
+      port: 443,
+      headers: {
+        "Notion-Version": NOTION_VERSION,
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+
+    return await this.#_request(options, {});
+  }
+
   async getBlockChildren(blockId) {
     let options = {
       host: "api.notion.com",

@@ -38,6 +38,21 @@ class NotionCMS {
     };
   }
 
+  async getContentOfPage(pageId) {
+    const pageObj = await this.notionApi.getPage(pageId);
+
+    return {
+      id: pageObj.id,
+      object: "page",
+      created_time: new Date(pageObj.created_time),
+      last_edited_time: new Date(pageObj.last_edited_time),
+      archived: pageObj.archived,
+      url: pageObj.url,
+      properties: new PageProperties(pageObj.properties).get(),
+      body: await this.#convertPageToHTML(pageObj.id),
+    };
+  }
+
   async #convertPageToHTML(id) {
     const dom = cheerio.load("<div></div>", null, false);
     await this.#convertBlockToHTML(id, dom("div"));
