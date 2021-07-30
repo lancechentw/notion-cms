@@ -1,6 +1,6 @@
 {
   "name": "notion-cms",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Build your website using content you put into Notion",
   "main": "index.js",
   "scripts": {
