@@ -67,7 +67,7 @@ class NotionCMS {
       switch (block.type) {
         case "paragraph":
           if (block.has_children) {
-            childNode.append('<div class="notioncms-indent"></div>');
+            childNode.append('<div class="pl-8"></div>');
             childNode = childNode.children().last();
           }
 
@@ -77,7 +77,7 @@ class NotionCMS {
 
           if (block.has_children) {
             childNode = childNode.parent();
-            childNode.append('<div class="notioncms-indent"></div>');
+            childNode.append('<div class="pl-8"></div>');
             childNode = childNode.children().last();
           }
           break;
@@ -132,7 +132,7 @@ class NotionCMS {
           break;
         case "to_do":
           if (block.has_children) {
-            childNode.append('<div class="notioncms-indent"></div>');
+            childNode.append('<div class="pl-8"></div>');
             childNode = childNode.children().last();
           }
           // TODO: create random id to bind label to input
@@ -147,7 +147,7 @@ class NotionCMS {
 
           if (block.has_children) {
             childNode = childNode.parent();
-            childNode.append('<div class="notioncms-indent"></div>');
+            childNode.append('<div class="pl-8"></div>');
             childNode = childNode.children().last();
           }
           break;

@@ -26,7 +26,7 @@ class RichTextList {
       }
 
       if (richText.annotations.underline) {
-        childNode.append('<span class="notioncms-underline"></span>');
+        childNode.append('<span class="underline"></span>');
         childNode = childNode.children().last();
       }
 
@@ -36,8 +36,16 @@ class RichTextList {
       }
 
       if (richText.annotations.color !== "default") {
+        let className = '';
+        let [color, isBackground] = richText.annotations.color.split('_');
+        if (isBackground) {
+          className = `bg-${color}-300`;
+        } else {
+          className = `text-${color}-900`;
+        }
+
         childNode.append(
-          `<span class="notioncms-color-${richText.annotations.color}"></span>`
+          `<span class="${className}"></span>`
         );
         childNode = childNode.children().last();
       }
