@@ -1,4 +1,5 @@
 const cheerio = require("cheerio");
+const mentionResolver = require("./MentionResolver");
 
 class RichTextList {
   constructor(richTextList) {
@@ -61,8 +62,6 @@ class RichTextList {
           }
           break;
         case "mention":
-          // NOTE: `user`, and `database` mentions are internal to Notion,
-          // thus are not supported here.
           if (richText.mention.type === "date") {
             if (richText.mention.date.end !== null) {
               childNode.append(
@@ -79,12 +78,28 @@ class RichTextList {
                 ).toString()}</time>`
               );
             }
-          } else if (richText.mention.type === "page") {
-            // TODO
-            childNode.append(richText.plain_text);
-          } else if (richText.mention.type === "database") {
-            // TODO
-            childNode.append(richText.plain_text);
+          } else if (
+            richText.mention.type === "page" ||
+            richText.mention.type === "database" ||
+            richText.mention.type === "user"
+          ) {
+            const result = mentionResolver.resolve(richText);
+            if (result?.type === "url") {
+              childNode.append(
+                `<a href="${result.url}">${richText.plain_text}</a>`
+              );
+            } else if (result?.type === "html") {
+              childNode.append(result.html);
+            } else {
+              const id =
+                richText.mention?.page?.id ||
+                richText.mention?.database?.id ||
+                richText.mention?.user?.id;
+              console.log(
+                `${richText.mention.type} ${id} is not resolved, configure a MentionResolver if you want it to be something other than plain text.`
+              );
+              childNode.append(richText.plain_text);
+            }
           }
           break;
         case "equation":

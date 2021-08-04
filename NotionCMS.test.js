@@ -129,3 +129,10 @@ test("should return correct object", async () => {
     ],
   });
 });
+
+test("should register mentionResolver callback", async () => {
+  const mentionResolverCallback = jest.fn();
+  const cms = new NotionCMS("fake-token", mentionResolverCallback);
+  const mentionResolver = require("./MentionResolver.js");
+  expect(mentionResolver.callback).toEqual(mentionResolverCallback);
+});

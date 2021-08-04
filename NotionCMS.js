@@ -2,10 +2,12 @@ const cheerio = require("cheerio");
 const NotionAPI = require("./NotionAPI.js");
 const { RichTextList } = require("./RichText.js");
 const { DatabaseProperties, PageProperties } = require("./Property");
+const mentionResolver = require("./MentionResolver");
 
 class NotionCMS {
-  constructor(token) {
+  constructor(token, mentionResolverCallback) {
     this.notionApi = new NotionAPI(token);
+    mentionResolver.setResolver(mentionResolverCallback);
   }
 
   async getContentOfDatabase(databaseId, filter, sorts) {
